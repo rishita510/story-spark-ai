@@ -19,12 +19,14 @@ interface StoriesComponentProps {
   stories: IStories[];
   isLogin: boolean;
   setStories: (stories: IStories[]) => void;
+  onPublishSuccess?: () => void;
 }
 
 const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
   stories,
   isLogin,
   setStories,
+  onPublishSuccess,
 }) => {
   const [selectedStory, setSelectedStory] = useState<IStories | null>(
     stories && stories[0]
@@ -54,14 +56,15 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
     updatedTopics[index].selected = !updatedTopics[index].selected;
     setTopics(updatedTopics);
   };
-const handleCopyStory = async () => {
-  if (selectedStory?.content) {
-    await navigator.clipboard.writeText(selectedStory.content);
-    setIsCopied(true);
-    toast.success("Story copied!");
-    setTimeout(() => setIsCopied(false), 2000);
-       }
-    };
+  const handleCopyStory = async () => {
+    if (selectedStory?.content) {
+      await navigator.clipboard.writeText(selectedStory.content);
+      setIsCopied(true);
+      toast.success("Story copied!");
+      setTimeout(() => setIsCopied(false), 2000);
+    }
+  };
+
   const handelPublishStory = async () => {
     if (!isLogin) {
       toast.error("Please login to publish the story.");
@@ -82,6 +85,7 @@ const handleCopyStory = async () => {
         toast.success("Story published successfully!");
         setStories([]);
         setSelectedStory(null);
+        onPublishSuccess?.();
       }
     } catch {
       toast.error("Something went wrong. Please try again.");

@@ -134,6 +134,13 @@ const StoriesComponent = () => {
     }
   };
 
+  const handlePublishSuccess = () => {
+    setTextareaValue("");
+    setSelectedPrompt("");
+    setValue("prompt", "");
+    reset();
+  };
+
   return (
     <div className="bg-gradient-to-br animate-gradient-slow min-h-screen">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -323,6 +330,7 @@ const StoriesComponent = () => {
         stories={stories}
         isLogin={login}
         setStories={setStories}
+        onPublishSuccess={handlePublishSuccess}
       />
       <div className="absolute top-[-200px] left-[250px] w-[800px] h-[350px] bg-blue-500/20 rounded-full blur-3xl -z-10"></div>
 
