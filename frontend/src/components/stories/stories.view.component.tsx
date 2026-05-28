@@ -323,7 +323,13 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
       setIsGeneratingEndings(false);
     }
   };
-
+  if (!stories.length) {
+  return (
+    <div className="text-center text-gray-400 py-10">
+      No stories generated yet. Start by entering a prompt ✨
+    </div>
+  );
+}
   const handleApplyEnding = (endingData: { style: string; ending: string; fullStory: string }) => {
     if (!selectedStory) return;
     const updatedStory = { ...selectedStory, content: endingData.fullStory };
