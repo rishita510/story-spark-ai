@@ -12,12 +12,11 @@ import logger from "./utils/logger.util";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 if (config.disable_logs) {
+  // Silence only verbose channels; keep warn/error so failures stay visible in logs.
   const noop = () => undefined;
   console.log = noop;
   console.info = noop;
   console.debug = noop;
-  console.warn = noop;
-  console.error = noop;
 }
 
 async function connectDB() {
