@@ -13,34 +13,10 @@ interface FAQAccordionProps {
 
 const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const baseId = useId();
-  const [openIndex, setOpenIndex] = useState<number | null>(
-    items.length > 0 ? 0 : null
-  );
 
   const toggleAccordion = (index: number) => {
     setOpenIndex((current) => (current === index ? null : index));
   };
-
-  if (items.length === 0) {
-    return (
-      <section id="faq-section" className="scroll-mt-28">
-        <div className="rounded-3xl border border-dashed border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/[0.03] p-12 text-center">
-          <div className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center mx-auto mb-5">
-            <i className="fa-solid fa-question text-3xl text-slate-500" aria-hidden="true"></i>
-          </div>
-
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-            No FAQs Found
-          </h3>
-
-          <p className="text-slate-600 dark:text-slate-400">
-            Try searching with different keywords.
-          </p>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section
@@ -156,94 +132,7 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ items }) => {
         </div>
       )}
     </section>
-              >
-                <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                  {faq.question}
-                </span>
-                <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 transition-transform duration-300 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
-                >
-                  <i className="fa-solid fa-chevron-down"></i>
-                </span>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    key={panelId}
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden px-6 pb-6"
-                  >
-<<<<<<< HEAD
-                    <div className="px-6 pb-6">
-                      <div className="rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 p-4 mt-2">
-                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Top/Bottom Interactive Accent Line */}
-                <div
-                  className={`
-                    h-[2px] w-full bg-gradient-to-r
-                    from-indigo-500 via-blue-500 to-purple-500
-                    transition-opacity duration-300
-                    ${isOpen ? "opacity-100" : "opacity-0"}
-                  `}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-      )}
-    </section>
-              </h3>
-
-              <div
-                id={panelId}
-                role="region"
-                aria-labelledby={buttonId}
-                hidden={!isOpen}
-                className={`px-6 overflow-hidden transition-all duration-300 ${
-                  isOpen
-                    ? "pb-5 max-h-96 opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <p className="text-slate-600 dark:text-gray-400 leading-relaxed border-t border-slate-200 dark:border-white/5 pt-4">
-                  {item.answer}
-                </p>
-              </div>
-            </article>
-=======
-                    <div className="rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 p-4">
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.article>
->>>>>>> upstream/main
-          );
-        })}
-      </div>
-    </section>
   );
 };
 
 export default FAQAccordion;
-
