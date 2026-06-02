@@ -806,10 +806,15 @@ useEffect(() => {
             <button className="!rounded-button bg-gray-100/80 hover:bg-gray-200/80 text-slate-900 dark:bg-white/20 dark:hover:bg-white/30 dark:text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded whitespace-nowrap border border-gray-200 dark:border-white/10">
               <span>
                 {" "}
-                <span className="text-gray-400 text-xs">{text.perMonth}</span>{" "}
+                <span className="text-gray-400 text-xs">
+                  {text.perMonth}
+                </span>{" "}
                 {getRequestLimit(userRole?.subscriptionType as string)}
               </span>
-              <Link to="/pricing" className="border-1 border-white/20 pl-2 text-gray-300">
+              <Link
+                to="/pricing"
+                className="border-1 border-white/20 pl-2 text-gray-300"
+              >
                 {text.upgrade}
               </Link>
               <i className="fas fa-bolt text-yellow-400"></i>
@@ -820,7 +825,9 @@ useEffect(() => {
                 {login ? (data?.requestsThisMonth ?? 0) : guestRequestCount}
               </span>
               <br />
-              <span>{text.totalPosts}: {login ? (data?.postsCount ?? 0) : 0}</span>
+              <span>
+                {text.totalPosts}: {login ? (data?.postsCount ?? 0) : 0}
+              </span>
             </div>
           </div>
         </div>
@@ -837,8 +844,10 @@ useEffect(() => {
           <div className="max-w-3xl mx-auto px-4 sm:px-0">
             <div className="bg-gray-50 rounded-md p-4 border border-gray-200 text-slate-900 dark:bg-blue-500/10 dark:border-gray-400 dark:text-white overflow-hidden">
               <div className="relative w-full">
-                <form className="space-y-4 w-full" onSubmit={handleSubmit(onSubmit)}>
-                  
+                <form
+                  className="space-y-4 w-full"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   {/* â”€â”€ Genre chips â”€â”€ */}
                   <div className="flex flex-wrap gap-2 mb-3">
                     {GENRES.map((genre) => (
@@ -848,7 +857,8 @@ useEffect(() => {
                         disabled={loading}
                         onClick={() => {
                           if (loading) return;
-                          const newGenre = selectedGenre === genre.value ? "" : genre.value;
+                          const newGenre =
+                            selectedGenre === genre.value ? "" : genre.value;
                           setSelectedGenre(newGenre);
                           if (newGenre) {
                             playSoundtrack(newGenre);
@@ -869,12 +879,17 @@ useEffect(() => {
                   </div>
 
                   {/* â”€â”€ NEW: Tone picker â”€â”€ */}
-                  <TonePicker selected={selectedTone} onChange={setSelectedTone} />
+                  <TonePicker
+                    selected={selectedTone}
+                    onChange={setSelectedTone}
+                  />
 
                   {/* â”€â”€ Length + Language row â”€â”€ */}
                   <div className="flex flex-wrap items-center gap-4 mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-400 mr-1">ðŸ“ {text.length}:</span>
+                      <span className="text-xs text-gray-400 mr-1">
+                        ðŸ“ {text.length}:
+                      </span>
 
                       {(["short", "medium", "long"] as const).map((length) => (
                         <button
@@ -894,18 +909,28 @@ useEffect(() => {
                     </div>
 
                     <div className="flex items-center gap-2 ml-0 sm:ml-auto">
-                      <span className="text-xs text-gray-400 mr-1">ðŸŒ {text.language}:</span>
+                      <span className="text-xs text-gray-400 mr-1">
+                        ðŸŒ {text.language}:
+                      </span>
                       <div className="relative" ref={languageDropdownRef}>
                         <button
                           key="lang-selector-btn"
                           type="button"
                           disabled={loading}
-                          onClick={() => !loading && setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                          onClick={() =>
+                            !loading &&
+                            setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                          }
                           className={`flex items-center gap-2 px-3 py-1 bg-white/10 text-gray-300 border border-slate-700/50 rounded-full text-xs font-semibold hover:bg-white/20 transition-all duration-200 ${
-                            loading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                            loading
+                              ? "cursor-not-allowed opacity-50"
+                              : "cursor-pointer"
                           }`}
                         >
-                          <span>{LANGUAGES.find(l => l.name === selectedLanguage)?.name || "English"}</span>
+                          <span>
+                            {LANGUAGES.find((l) => l.name === selectedLanguage)
+                              ?.name || "English"}
+                          </span>
                           <span className="text-gray-400 text-[10px]">â–¼</span>
                         </button>
 
@@ -949,8 +974,8 @@ useEffect(() => {
                         isOverLimit
                           ? "ring-1 ring-red-500 rounded"
                           : isNearLimit
-                          ? "ring-1 ring-yellow-400 rounded"
-                          : ""
+                            ? "ring-1 ring-yellow-400 rounded"
+                            : ""
                       }`}
                       placeholder={text.promptPlaceholder}
                       value={textareaValue}
@@ -1000,7 +1025,9 @@ useEffect(() => {
                     <button
                       type="button"
                       disabled={loading}
-                      onClick={() => !loading && setIsRecentPromptsOpen(!isRecentPromptsOpen)}
+                      onClick={() =>
+                        !loading && setIsRecentPromptsOpen(!isRecentPromptsOpen)
+                      }
                       className={`absolute right-2 top-12 bg-indigo-600 text-white px-3 py-2 rounded-lg text-sm transition-colors duration-200 flex items-center gap-2 ${
                         loading
                           ? "cursor-not-allowed opacity-60"
@@ -1028,12 +1055,13 @@ useEffect(() => {
                     <div className="flex items-center justify-between mt-1 px-1">
                       {isOverLimit ? (
                         <p className="text-xs text-red-400 flex items-center gap-1">
-                          <span>âš </span> {text.characterLimit}
+                          <span>!</span> {text.characterLimit}
                         </p>
                       ) : isNearLimit ? (
                         <p className="text-xs text-yellow-400 flex items-center gap-1">
-                          <span>âš </span>{" "}
-                          {MAX_PROMPT_LENGTH - textareaValue.length} {text.charactersRemaining}
+                          <span>!</span>{" "}
+                          {MAX_PROMPT_LENGTH - textareaValue.length}{" "}
+                          {text.charactersRemaining}
                         </p>
                       ) : (
                         <span />
@@ -1044,8 +1072,8 @@ useEffect(() => {
                           isOverLimit
                             ? "text-red-400 font-medium"
                             : isNearLimit
-                            ? "text-yellow-400"
-                            : "text-gray-500"
+                              ? "text-yellow-400"
+                              : "text-gray-500"
                         }`}
                       >
                         {textareaValue.length} / {MAX_PROMPT_LENGTH}
@@ -1054,7 +1082,8 @@ useEffect(() => {
                   </div>
 
                   <p className="text-xs text-gray-500 mt-1 px-1">
-                    ðŸ’¡ <span className="font-medium">{text.keyboardTip}</span> {text.press}{" "}
+                    ðŸ’¡ <span className="font-medium">{text.keyboardTip}</span>{" "}
+                    {text.press}{" "}
                     <kbd className="px-1 py-0.5 text-xs bg-gray-700 rounded border border-gray-600">
                       Enter
                     </kbd>{" "}
@@ -1114,8 +1143,12 @@ useEffect(() => {
                     </button>
                   </div>
                   {loading && (
-                    <p className="text-sm text-indigo-300 mt-3 text-right" aria-live="polite">
-                      Your story is being generated. You can cancel the request if it takes too long.
+                    <p
+                      className="text-sm text-indigo-300 mt-3 text-right"
+                      aria-live="polite"
+                    >
+                      Your story is being generated. You can cancel the request
+                      if it takes too long.
                     </p>
                   )}
                 </form>
@@ -1199,24 +1232,36 @@ useEffect(() => {
             </h2>
 
             <div className="space-y-3 text-slate-600 text-sm dark:text-gray-300">
-              <div><kbd>?</kbd> {text.openHelp}</div>
-              <div><kbd>Esc</kbd> {text.closeHelp}</div>
-              <div><kbd>/</kbd> {text.focusPrompt}</div>
-              <div><kbd>Ctrl + Enter</kbd> {text.generateStory}</div>
-              <div><kbd>Ctrl + S</kbd> {text.publishStory}</div>
+              <div>
+                <kbd>?</kbd> {text.openHelp}
+              </div>
+              <div>
+                <kbd>Esc</kbd> {text.closeHelp}
+              </div>
+              <div>
+                <kbd>/</kbd> {text.focusPrompt}
+              </div>
+              <div>
+                <kbd>Ctrl + Enter</kbd> {text.generateStory}
+              </div>
+              <div>
+                <kbd>Ctrl + S</kbd> {text.publishStory}
+              </div>
             </div>
 
-        <button
-        onClick={() => setShowHelpModal(false)}
-        className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg"
-      >
-        {text.close}
-      </button>
+            <button
+              onClick={() => setShowHelpModal(false)}
+              className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg"
+            >
+              {text.close}
+            </button>
+          </div>
         </div>
-      </div>
       )}
 
-      {loading && <StoryGeneratingAnimation onCancel={handleCancelGeneration} />}
+      {loading && (
+        <StoryGeneratingAnimation onCancel={handleCancelGeneration} />
+      )}
 
       {/* Search UI */}
       {stories.length > 0 && (
@@ -1244,7 +1289,8 @@ useEffect(() => {
           </div>
           {searchQuery && (
             <div className="mt-2 text-sm text-slate-400">
-              Found {filteredStories.length} {filteredStories.length === 1 ? 'story' : 'stories'}
+              Found {filteredStories.length}{" "}
+              {filteredStories.length === 1 ? "story" : "stories"}
             </div>
           )}
         </div>
@@ -1291,7 +1337,7 @@ useEffect(() => {
           </div>
         </div>
       )}
-     
+
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-6">
           <button
