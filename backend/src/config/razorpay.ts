@@ -9,7 +9,6 @@ const getRazorpay = (): InstanceType<typeof Razorpay> => {
       key_secret: process.env.RAZORPAY_KEY_SECRET!,
     });
   }
-
   return razorpayInstance;
 };
 
